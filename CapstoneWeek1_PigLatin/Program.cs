@@ -17,7 +17,7 @@ namespace CapstoneWeek1_PigLatin
 
                 //store input as a variable
 
-                string input = Console.ReadLine();
+                string input = Console.ReadLine().ToLower();
 
                 //if input is null or whitespace prompt user to try again and go to top of loop
 
@@ -61,9 +61,19 @@ namespace CapstoneWeek1_PigLatin
             }
 
             //figure out the first letter of the string
-            //convert everything to lower
-            string firstletter = word.ToLower().Substring(0, 1);
+            
+            string firstletter = word.Substring(0, 1);
 
+            //figure out the last letter of string if ends with punctuation
+            char lastletter = word.ToCharArray()[word.Length - 1];
+            
+            
+            if (char.IsPunctuation(lastletter) == true)
+            {
+                string translatedWord;
+                translatedWord = TranslateWithPunctuation(word);
+                return translatedWord;
+            }
 
             //if starts with vowel
             if (firstletter == "a" || firstletter == "e" || firstletter == "i" || firstletter == "o" || firstletter == "u")
@@ -96,7 +106,7 @@ namespace CapstoneWeek1_PigLatin
             bool questionAnswered = false;
             while (questionAnswered == false)
             {
-                string yesOrNo = Console.ReadLine().ToLower();
+                string yesOrNo = Console.ReadLine();
                 if (yesOrNo == "n")
                 {
                     Console.WriteLine("Goodbye!");
@@ -176,6 +186,37 @@ namespace CapstoneWeek1_PigLatin
 
            return word.IndexOfAny(vowels);
             
+        }
+
+        public static string TranslateWithPunctuation(string word)
+        {
+            string firstletter = word.Substring(0, 1);
+
+            //if starts with vowel
+
+            string lastLetter = word.Substring(word.Length - 1);
+            string wordWithoutLastLetter = word.Substring(0, word.Length - 2);
+
+            if (firstletter == "a" || firstletter == "e" || firstletter == "i" || firstletter == "o" || firstletter == "u")
+            {
+                
+                
+
+                return wordWithoutLastLetter + "way" + lastLetter;
+            }
+            else if (IsIndexOfVowel(word) != -1)
+            {
+                string wordStartingWithFirstVowel = word.Substring(IsIndexOfVowel(word), word.Length-2);
+                string wordBeforeFirstVowel = word.Substring(0, IsIndexOfVowel(word));
+
+                return wordStartingWithFirstVowel + wordBeforeFirstVowel + "ay" + lastLetter;
+
+            }
+            else
+            {
+                return wordWithoutLastLetter + "way" + lastLetter;
+
+            }
         }
     }
 }
