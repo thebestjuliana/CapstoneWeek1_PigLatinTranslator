@@ -144,7 +144,8 @@ namespace CapstoneWeek1_PigLatin
             bool questionAnswered = false;
             while (questionAnswered == false)
             {
-                string yesOrNo = Console.ReadLine();
+
+                string yesOrNo = Console.ReadLine().ToLower();
                 if (yesOrNo == "n")
                 {
                     Console.WriteLine("Goodbye!");
