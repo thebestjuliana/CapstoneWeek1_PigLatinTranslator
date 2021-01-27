@@ -28,11 +28,12 @@ namespace CapstoneWeek1_PigLatin
                 }
 
                 //translate into piglatin and display on consul
+                //Look at each word individually
                 string[] arrayOfWords = StringToArray(input);
                 string[] lowerTranslatedPigLatin = new string[arrayOfWords.Length];
                 for (int i = 0; i < arrayOfWords.Length; i++)
                 {
-
+                    //don't translate spaces if multiple spaces in the text/weren't removed when going to an array
                     if (string.IsNullOrEmpty(arrayOfWords[i]))
                     {
                         lowerTranslatedPigLatin[i] = " ";
@@ -240,7 +241,7 @@ namespace CapstoneWeek1_PigLatin
             int indexOfy = word.IndexOf('y');
 
             string lastLetter = word.Substring(word.Length - 1);
-            string wordWithoutLastLetter = word.Substring(0, word.Length - 2);
+            string wordWithoutLastLetter = word.Substring(0, word.Length - 1);
 
             if (firstletter == "a" || firstletter == "e" || firstletter == "i" || firstletter == "o" || firstletter == "u")
             {
@@ -251,7 +252,7 @@ namespace CapstoneWeek1_PigLatin
             }
             else if (IsIndexOfVowel(word) != -1)
             {
-                string wordStartingWithFirstVowel = word.Substring(IsIndexOfVowel(word), word.Length - 2);
+                string wordStartingWithFirstVowel = word.Substring(IsIndexOfVowel(word), word.Length - 1 - IsIndexOfVowel(word));
                 string wordBeforeFirstVowel = word.Substring(0, IsIndexOfVowel(word));
 
                 return wordStartingWithFirstVowel + wordBeforeFirstVowel + "ay" + lastLetter;
@@ -259,10 +260,10 @@ namespace CapstoneWeek1_PigLatin
             }
             else if (indexOfy != -1)
             {
-                string wordStartingWithFirstY = word.Substring(word.IndexOf('y'));
+                string wordStartingWithFirstY = word.Substring(word.IndexOf('y'), word.Length - 1 - word.IndexOf('y'));
                 string wordBeforeY = word.Substring(0, word.IndexOf('y'));
 
-                return wordStartingWithFirstY + wordBeforeY + "ay";
+                return wordStartingWithFirstY + wordBeforeY + "ay" + lastLetter;
             }
             else
             {
